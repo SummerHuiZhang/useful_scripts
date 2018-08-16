@@ -1,0 +1,29 @@
+# tmux打开以前的terminal 0
+tmux attach -t 0
+# 将图像分成training和test脚本 
+## 方法一： 王香伟的data_move.py 
+先将所有图像名字生成一个list，从list中删除不需要移除的的图像的名称
+运行
+## 方法二：divide_train_test.py
+详见divide_train_test.py
+# tmux 使用快捷键
+ctrl+b；shift+%  竖着分屏
+ctrl+b；shift+"  横着分屏
+Ctrl-b s：在 Tmux 的会话间切换
+Ctrl-b w：在 Tmux 的windows间切换
+Ctrl-b +方向键：进入对应的窗格
+Ctrl-b c：创建窗口
+Ctrl-b 数字：切换窗口 
+Ctrl-b p/n: prev/next窗口
+Ctrl-b z: 最大化分割的窗口/恢复原状
+Ctrl-b PgUp/PgDn:终端前后回滚
+CTRL-b &或者exit：离开一个会话[exited]
+CTRL-b d：从一个会话中脱离[dettached]
+# vim 快捷键
+yy复制这行 p粘贴
+dd删除这行
+f;x 向右跳到本行字符x处
+跳到指定行：xgg，
+如：跳到第25行
+方法一：“25gg／G”
+方法二: “：25”
