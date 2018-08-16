@@ -1,0 +1,147 @@
+# 2018年6月6日
+## Mac登陆629台式机
+	ssh -X 192.168.1.126 
+## 登陆二楼服务器
+    ssh -p 252 timing@10.60.100.57
+    安装在根目录～下，数据集等大容量文件放在 /mnt下(1.5T容量)
+## 在629台式机运行闭环检测演示
+    cd ~/Documents/DLoopDetector/Build
+    ./demo_brief
+## 利用DigitalOcean翻墙
+    ssh root@165.227.24.141
+    pw：ghh
+    ssserver -c /etc/shadowsocks.json
+## 压缩or解压文件
+	tar    	-xvf           *.tar
+	tar    	-xvf           file.zip
+	tar   	-cvf     	     file.zip          file
+## IROS2018常用命令
+### Build map
+	change CreateVocDB.cpp of result_path
+	./bin/CreateVocDB   File_Path
+
+### AccurateTest
+	need to change 9 paths in default.ymal
+	db_dir               real_dir 		generate_dir 
+	path_to_index   	path_to_voc  		path_to_db 
+	path_to_day_pgs 	path_to_night_gps 	result_dir. (mkdir)
+    change output_imagenames_error in line 65.     AccurateTest.cpp 
+	create corresponding folder 
+	bash make_AccurateTest.sh
+# tmux打开以前的terminal 0
+tmux attach -t 0
+# 将图像分成training和test脚本 
+## 方法一： 王香伟的data_move.py 
+先将所有图像名字生成一个list，从list中删除不需要移除的的图像的名称
+运行
+## 方法二：divide_train_test.py
+详见divide_train_test.py
+# tmux 使用快捷键
+ctrl+b；shift+%  竖着分屏
+ctrl+b；shift+"  横着分屏
+Ctrl-b s：在 Tmux 的会话间切换
+Ctrl-b w：在 Tmux 的windows间切换
+Ctrl-b +方向键：进入对应的窗格
+Ctrl-b c：创建窗口
+Ctrl-b 数字：切换窗口 
+Ctrl-b p/n: prev/next窗口
+Ctrl-b z: 最大化分割的窗口/恢复原状
+Ctrl-b PgUp/PgDn:终端前后回滚
+CTRL-b &或者exit：离开一个会话[exited]
+CTRL-b d：从一个会话中脱离[dettached]
+# vim 快捷键
+yy复制这行 p粘贴
+dd删除这行
+f;x 向右跳到本行字符x处
+跳到指定行：xgg，
+如：跳到第25行
+方法一：“25gg／G”
+方法二: “：25”
+# linux ternimal（端口）常用命令
+计算该文件夹下文件数量 
+	ls ./ | wc -l
+把某一文件夹下的文件名称按顺序列入list
+	find `pwd`/AMOS_Data/00004534/2017_05/* | sort > list.txt
+	注：pwd两边的` `不是单引号是键盘左上角～那里的
+	ctrl+a 回到行首
+	ctrl+e 回到行尾
+## 查看文件或文件夹的大小数量等
+** 查看当前目录下的文件数量（不包含子目录中的文件）
+	ls -l|grep "^-"| wc -l
+**查看当前目录总共占的容量。而不单独列出各子项占用的容量**
+	du -sh 
+**查看当前目录下一级子文件和子目录占用的磁盘容量*
+	du -lh --max-depth=1 
+**统计当前文件夹(目录)大小，并按文件大小排序
+	du -sh * | sort -n 
+**查看指定文件大小*
+	du -sk filename 
+## 改上层文件夹权限
+	chomd 
+	chown
+	sudo chown user -R file_name
+	eg. sudo chown timing -R StarGAN_Norland##
+# python 版本是2.7
+# 指定需要用的GPU
+# 用conda安装了新的python
+使用前需要先激活tensorflow的环境  
+	source activate tensorflow	
+# tmux快捷键
+*进入训练StarGAN的tmux*
+	tmux a -t StarGAN
+ctrl+b：
+	c:新建windows
+	%：竖着分屏
+	“：横着分屏
+	z：把这个屏最大或者恢复最小化
+	数字n：回到第n个session（每个session包含多个windows）
+	ctrl+d：关闭bash
+	<--,-->:按住上下左右箭头可以调整windows大小
+# 进入docker
+## tensorflow
+	docker挂载共享本地文件目录
+	sudo nvidia-docker run -it -v /home/timing/:/home/timing/ tensorflow/tensorflow:lastest-gpu bash
+##  pytorch
+	sudo nvidia-docker run -it -v /home/timing/:/home/timing/ zhanghui/pytorch:cu80 bash
+# 2018年7月24日
+用灰色小图Norland（在StarGAN目录下的RaFD文件夹下）数据集train上了StraGAN看一下效果吧  估计还是要换成大的彩色图像
+# 把mac文件夹copy到二楼
+	scp -r -P 252  ...  timing@10.60.100.57:~/
+	sudo scp -r -P 252 Image0 timing@10.60.100.57:~/
+
+ps: 
+	"..."代表文件（夹）的路径及名称   如果在当前目录下不需要'./'
+	二楼的数据集位置/mnt/datasets不能直接copy过去
+# git上传本地库到网站
+	git add -A    添加所有文件（不需要上传的文件可以删除或者放在/.ignore里面）
+	git remote rm origin
+	git remote add origin http://github.com//.....
+	git push -u origin master
+# 查找重复文件（夹）
+安装了fdupes 
+使用方法：
+	fdupes -S  文件夹（含绝对路径）：查看重复文件
+	fdupes -r  文件夹（含绝对路径）：搜索重复文件
+	fdupes -Sr 文件夹（含绝对路径）：搜索并查看重复文件
+	fdupes -S 文件夹1  文件夹2  ：查看文件夹1和2有哪些重复文件
+# 查看文件属性
+ls -al        读写权限
+file 文件名    文件类型
+	
+# ffmpeg将视频截取成图像
+	ffmpeg -i Spring.mp4 -r 0.1 -f image2 image%6d.png 
+ps：这里的第五个参数0.1为帧率，表示每10秒存为一副图像，
+# 训练StarGAN时要改的参数  
+Train_StarGAN_.bash里面数据位置，模型存储位置，
+# 将二楼的图片scp到Mac
+zhanghui$  scp -P 252 timing@10.60.100.57:/home/timing/StarGAN_Norland/Norland_Images/train/summer_copy/*.png ~/Desktop/temp/
+# 将文件名称写到txt文件
+find train/spring/  |sort > test.txt
+cat test.txt  //查看生成的txt文件
+# cnvert text into array
+	file = open ("test_imagenames.txt", "r")	
+	x = []
+	for item in file:
+    x.append(item.split ('\s'))
+	a = np.array(x)
+	print(a[:1])
