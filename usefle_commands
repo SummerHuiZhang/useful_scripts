@@ -117,3 +117,5 @@ cat test.txt  //查看生成的txt文件
     x.append(item.split ('\s'))
 	a = np.array(x)
 	print(a[:1])
+# Markdown 快捷键
+[参考博客]<https://www.jianshu.com/p/228b648734d6>
