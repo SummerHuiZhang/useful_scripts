@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 import glob
 import os
 import cv2
@@ -16,5 +17,6 @@ for file_name in file_names:
     print(file_name_parse)
     newfile_name = tar_path+'/'+file_name_parse[-1]
     print(newfile_name)
-    rimg=cv2.resize(img,(1241,376))
+    rimg=cv2.resize(img,(640,260))
+    rimg = np.mean(rimg, -1)
     cv2.imwrite(newfile_name,rimg)
