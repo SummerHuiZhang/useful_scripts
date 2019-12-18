@@ -4,14 +4,10 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 img = cv2.imread('test2.png',0)
-#cv2.namedWindow('win',cv2.WINDOW_AUTOSIZE)
-#cv2.namedWindow('win2',cv2.WINDOW_AUTOSIZE)
-#创建fast特征点检测器 threshold=150 候选点与四周灰度差值
-#每隔几个特征点删除一个
 delete_freq=5 　　　　　　　　
 i=0
 akaze = cv2.AKAZE_create(threshold=0.0007)        　　 #smaller, more points
-kp_akaze = akaze.detect(img,None)　　　　　　　　　　　　 ＃keypoints of akaze
+kp_akaze = akaze.detect(img,None)　　　　　　　　　　　　 #keypoints of akaze
 img_akaze = cv2.drawKeypoints(img,kp_akaze,img,color=(255,0,0))
 cv2.imshow('AKAZE',img_akaze)
 cv2.waitKey(０)
